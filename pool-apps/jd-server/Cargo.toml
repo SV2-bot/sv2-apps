@@ -30,3 +30,4 @@ hotpath = "0.14.0"
 [features]
 hotpath = ["hotpath/hotpath"]
 hotpath-alloc = ["hotpath", "hotpath/hotpath-alloc"]
+hotpath-mcp = ["hotpath", "hotpath/hotpath-mcp"]

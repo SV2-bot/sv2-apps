@@ -1,3 +1,16 @@
+# Hotpath-rs uses pre-rendered TOML configs mounted via environment variables.
+# docker_env and envsubst are not used. Required env vars:
+#
+#   BITCOIN_SOCKET_PATH   - path to Bitcoin Core IPC socket
+#   BITCOIN_IPC_DIR       - parent directory of the IPC socket
+#   CONFIG_POOL           - directory containing pool-config.toml
+#   CONFIG_JDC            - directory containing jdc-config.toml
+#   CONFIG_TPROXY         - directory containing tproxy-config.toml
+#   DATA_POOL             - pool data directory
+#
+# See docker/AGENTS.md for the full deployment model.
+#
+# Below is the original upstream docker_env.example for reference.
 BITCOIN_SOCKET_PATH=/absolute/path/to/your/node.sock
 
 #Pool Settings
@@ -31,4 +44,3 @@ TPROXY_ENABLE_VARDIFF=true
 TPROXY_UPSTREAM_ADDRESS=jd_client_sv2 # Use jd_client_sv2 for pool_and_miner_apps, pool_sv2 for pool_and_miner_apps_no_jd
 TPROXY_UPSTREAM_PORT=34265 # Use 34265 for pool_and_miner_apps, 3333 for pool_and_miner_apps_no_jd
 TPROXY_UPSTREAM_AUTHORITY_PUBKEY=9auqWEzQDVyd2oe1JVGFLMLHZtCo2FFqZwtKA5gd9xbuEu7PH72
-

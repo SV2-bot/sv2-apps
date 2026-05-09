@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# to define what app will be built
 ARG APP
+ARG HOTPATH_FEATURES=hotpath,hotpath-mcp
 
 ### caching dependencies
 
@@ -44,11 +44,11 @@ COPY bitcoin-core-sv2/ bitcoin-core-sv2/
 COPY stratum-apps/ stratum-apps/
 
 # build target app
-RUN echo "Building ${APP}" && \
+RUN echo "Building ${APP} with features=${HOTPATH_FEATURES}" && \
     case "$APP" in \
-        pool_sv2) cargo build --release --manifest-path pool-apps/pool/Cargo.toml --target-dir ./ ;; \
-        jd_client_sv2) cargo build --release --manifest-path miner-apps/jd-client/Cargo.toml --target-dir ./ ;; \
-        translator_sv2) cargo build --release --manifest-path miner-apps/translator/Cargo.toml --target-dir ./ ;; \
+        pool_sv2) cargo build --features ${HOTPATH_FEATURES} --release --manifest-path pool-apps/pool/Cargo.toml --target-dir ./ ;; \
+        jd_client_sv2) cargo build --features ${HOTPATH_FEATURES} --release --manifest-path miner-apps/jd-client/Cargo.toml --target-dir ./ ;; \
+        translator_sv2) cargo build --features ${HOTPATH_FEATURES} --release --manifest-path miner-apps/translator/Cargo.toml --target-dir ./ ;; \
         *) echo "Unknown APP: $APP" && exit 1 ;; \
     esac
 
@@ -58,7 +58,7 @@ RUN echo "Building ${APP}" && \
 FROM debian:bookworm-slim AS runtime
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gettext-base && \
+    gettext-base curl && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
