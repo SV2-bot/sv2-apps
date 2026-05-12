@@ -10,6 +10,8 @@ Based on upstream [stratum-mining/sv2-apps v0.4.0](https://github.com/stratum-mi
   three `cargo build` commands use `--features ${HOTPATH_FEATURES}`.
 - **Dockerfile**: Builder toolchain bumped to `rust:1.89-slim-bookworm` to satisfy
   `hotpath-mcp` dependency MSRV requirements.
+- **stratum-apps/Cargo.toml**: `utoipa-swagger-ui` now enables `vendored` assets
+  with `default-features = false` to avoid network fetch failures during Docker builds.
 - **docker-compose.yml**: Services build from the local Dockerfile instead of pulling
   pre-built images. Images tagged `:hotpath`. Pre-generated TOML configs mounted via
   `CONFIG_POOL`, `CONFIG_JDC`, `CONFIG_TPROXY` env vars. Healthchecks added for all
