@@ -6,8 +6,10 @@ Based on upstream [stratum-mining/sv2-apps v0.4.0](https://github.com/stratum-mi
 
 ### Changes from upstream
 
-- **Dockerfile**: Added `HOTPATH_FEATURES` build arg (defaults to `hotpath`). All
+- **Dockerfile**: Added `HOTPATH_FEATURES` build arg (defaults to `hotpath,hotpath-mcp`). All
   three `cargo build` commands use `--features ${HOTPATH_FEATURES}`.
+- **Dockerfile**: Builder toolchain bumped to `rust:1.89-slim-bookworm` to satisfy
+  `hotpath-mcp` dependency MSRV requirements.
 - **docker-compose.yml**: Services build from the local Dockerfile instead of pulling
   pre-built images. Images tagged `:hotpath`. Pre-generated TOML configs mounted via
   `CONFIG_POOL`, `CONFIG_JDC`, `CONFIG_TPROXY` env vars. Healthchecks added for all
